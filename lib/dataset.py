@@ -25,7 +25,7 @@ def load_data(data_path):
 
     df = pd.DataFrame()
     for f in tqdm(file_list, desc=f"Load Dataset: {data_path}"):
-        temp = pd.read_csv(data_path + f"\\{f}")
+        temp = pd.read_csv(data_path + f"/{f}")
         df = pd.concat([df, temp], axis=0)
     df.reset_index(drop=True, inplace=True)
     return df
