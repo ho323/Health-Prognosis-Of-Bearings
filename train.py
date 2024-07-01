@@ -138,6 +138,6 @@ def data(existed=False):
 
 
 if __name__ == "__main__":
-    train_tasks, val_tasks = data(extisted)
+    train_tasks, val_tasks = data(existed)
 
     main(train_tasks, val_tasks, input_channels, hidden_size, num_layers, seq_length, num_epochs, num_inner_steps, rul_log_file, rul_model_path, device)
