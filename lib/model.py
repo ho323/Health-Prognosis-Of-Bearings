@@ -62,42 +62,26 @@ class DegradationModel(nn.Module):
         x = self.bilstm(x.permute(0,2,1))
         out = self.reg(x)
         return out
+    
 
 class Generator(nn.Module):
-    def __init__(self, channels=2):
+    def __init__(self, input_channel, hidden_channel, num_layers=4):
         super(Generator, self).__init__()
-        self.initial = nn.Sequential(
-            nn.Conv1d(channels, 64, kernel_size=7, stride=1, padding=3),
-            nn.InstanceNorm1d(64),
-            nn.ReLU(inplace=True)
-        )
-        self.downsampling = nn.Sequential(
-            nn.Conv1d(64, 128, kernel_size=4, stride=2, padding=1),
-            nn.InstanceNorm1d(128),
-            nn.ReLU(inplace=True),
-            nn.Conv1d(128, 256, kernel_size=4, stride=2, padding=1),
-            nn.InstanceNorm1d(256),
-            nn.ReLU(inplace=True)
-        )
-        self.upsampling = nn.Sequential(
-            nn.ConvTranspose1d(256, 128, kernel_size=4, stride=2, padding=1),
-            nn.InstanceNorm1d(128),
-            nn.ReLU(inplace=True),
-            nn.ConvTranspose1d(128, 64, kernel_size=4, stride=2, padding=1),
-            nn.InstanceNorm1d(64),
-            nn.ReLU(inplace=True)
-        )
-        self.output_layer = nn.Sequential(
-            nn.ConvTranspose1d(64, channels, kernel_size=7, stride=1, padding=3),
-            nn.InstanceNorm1d(channels),
-            nn.Tanh()
-        )
+        self.lstm = nn.LSTM(input_channel, hidden_channel, num_layers=num_layers, batch_first=True)
+        self.fc = nn.Linear(hidden_channel, input_channel)
 
     def forward(self, x):
-        x = x.permute(0,2,1)
-        x = self.initial(x)
-        x = self.downsampling(x)
-        x = self.upsampling(x)
-        x = self.output_layer(x)
-        x = x.permute(0,2,1)
+        x, _ = self.lstm(x)
+        x = self.fc(x)
+        return x
+
+class Discriminator(nn.Module):
+    def __init__(self, input_channel, hidden_channel, num_layers=4):
+        super(Discriminator, self).__init__()
+        self.lstm = nn.LSTM(input_channel, hidden_channel, num_layers=num_layers, batch_first=True)
+        self.fc = nn.Linear(hidden_channel, 1)
+
+    def forward(self, x):
+        x, _ = self.lstm(x)
+        x = self.fc(x[:, -1, :])
         return x
