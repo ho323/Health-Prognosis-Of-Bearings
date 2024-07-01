@@ -3,11 +3,15 @@
 https://www.sciencedirect.com/science/article/abs/pii/S0888327024000840
 
 
+## Enviroments
+- OS : Windows 11
+- Python : 3.9
+- Pytorch : 
+- Cuda : 
+
 ## Datasets
-Dataset Download Link  
+학습에 사용한 모든 데이터셋은 아래 다운로드 링크에서 받을 수 있습니다. 
 [XJTU-SY Dataset](https://biaowang.tech/xjtu-sy-bearing-datasets/)
 
-## How to Run
-1. Dataset을 다운 받습니다. 
-2. 패키지를 설치합니다. `pip install -r requirements.txt`
-3. main.py를 실행합니다. 
+- Bearing 1_1, 2_1, 3_1 을 test set으로 사용했습니다. 
+
