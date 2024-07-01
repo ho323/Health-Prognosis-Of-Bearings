@@ -12,7 +12,7 @@ from lib.model import *
 from lib.engine import *
 import pickle
 
-extisted = True
+existed = True
 input_channels= 2
 hidden_size= 64
 num_layers= 4
@@ -106,8 +106,8 @@ def main(train_tasks, val_tasks, input_channels, hidden_size, num_layers, seq_le
         rul_model_path = rul_model_path,
     )
 
-def data(extisted=False):
-    if extisted == False:
+def data(existed=False):
+    if existed == False:
         data_paths = get_bearing_paths(".\\datasets")
 
         train_tasks = []
