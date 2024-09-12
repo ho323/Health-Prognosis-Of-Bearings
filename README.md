@@ -1,9 +1,6 @@
 # Health-Prognosis-Of-Bearings
 기계 요소 중 베어링의 RUL(잔여 수명)을 예측하는 모델을 구현합니다.  
 
-혼자 작업하다 보니 실수가 많습니다. 피드백 환영합니다.  
-8536048@gmail.com  
-
 ## Enviroments
 - OS : Windows 11
 - Python : 3.9.19
